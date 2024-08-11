@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Crop Prediction Model</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+  <style>
+      body {
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          font-family: 'Roboto Condensed', sans-serif;
+          background: linear-gradient(-45deg, #43cea2, #185a9d, #00c6ff, #0072ff);
+          background-size: 400% 400%;
+          animation: gradientBG 15s ease infinite;
+      }
+
+      @keyframes gradientBG {
+          0% {
+              background-position: 0% 50%;
+          }
+          50% {
+              background-position: 100% 50%;
+          }
+          100% {
+              background-position: 0% 50%;
+          }
+      }
+
+      .login {
+          background-color: rgba(255, 255, 255, 0.9);
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          max-width: 400px;
+          text-align: center;
+      }
+
+      .login h1 {
+          font-size: 24px;
+          margin-bottom: 20px;
+          color: #007bff;
+      }
+
+      .login input[type="text"] {
+          width: 100%;
+          padding: 10px;
+          margin: 10px 0;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          font-size: 16px;
+      }
+
+      .login button {
+          width: 100%;
+          padding: 10px;
+          background-color: #007bff;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+          transition: background-color 0.3s ease;
+      }
+
+      .login button:hover {
+          background-color: #0056b3;
+      }
+
+      #predi {
+          margin-top: 20px;
+          font-size: 18px;
+          color: green;
+          font-weight: bold;
+      }
+  </style>
+</head>
+<body>
+  <div class="login">
+    <h1>Crop Prediction Model</h1>
+
+    <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict') }}" method="post">
+      <input type="text" name="Nitrogen" placeholder="Nitrogen" required="required" />
+      <input type="text" name="Phosphorus" placeholder="Phosphorus" required="required" />
+      <input type="text" name="Potassium" placeholder="Potassium" required="required" />
+      <input type="text" name="temperature" placeholder="Temperature" required="required" />
+      <input type="text" name="humidity" placeholder="Humidity" required="required" />
+      <input type="text" name="pH" placeholder="pH" required="required" />
+      <input type="text" name="rainfall" placeholder="Rainfall" required="required" />
+
+      <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+    </form>
+
+    {% if prediction_text %}
+      <div id="predi">
+        {{ prediction_text }}
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
